@@ -17,13 +17,14 @@ class Character {
     console.log(`Attaque de ${this.name} atteint un niveau de ${this.attack} !`);
   }
 
-  dealDamage = (victim) => {
-    victim.takeDamage(this.attack)
-    this.exhausted = true
-  }
-
   takeDamage = (value) => {
     this.lifePoints = (this.lifePoints - value)
+  }
+
+  dealDamage = (victim) => {
+    victim.takeDamage(this.attack)
+    console.log(`${victim.name} a perdu ${this.attack} PV`);
+    this.exhausted = true
   }
 
   takeAction = () => {
@@ -52,7 +53,79 @@ class Character {
     else {
     }
 
-    let playerAttaq = prompt(`Que décides-tu ${this.name}`);
-    let playerVictim = prompt(`Sur qui lances-tu cette attaque ${this.name}`);
+    console.log(`Liste des ennemis`);
+    for (let i = 0; i< game.players.length; i++) {
+      name = game.players[i].name
+      console.log(`${name}`);
+    };
+
+    let playerVictim = prompt(`Sur qui veux-tu lancer ton attaque ${this.name} ?`);
+
+    let playerAttaq = prompt(`Que décides-tu ${this.name}? NORM ou SPEC ?`);
+
+    if (game.players.length > 5) {
+      if (playerVictim == game.players[0].name) {
+        playerVictim = game.players[0]
+      }
+      else if (playerVictim == "Carl") {
+        playerVictim = game.players[1]
+      }
+      else if (playerVictim == "Moana") {
+        playerVictim = game.players[2]
+      }
+      else if (playerVictim == "Grace") {
+        playerVictim = game.players[3]
+      }
+      else if (playerVictim == "Ulder") {
+        playerVictim = game.players[4]
+      }
+      else if (playerVictim == "Draven") {
+        playerVictim = game.players[5]
+      }
+      else {
+      }
+    }
+    else if (game.players.length = 5){
+      if (playerVictim == "Carl") {
+        playerVictim = game.players[0]
+      }
+      else if (playerVictim == "Moana") {
+        playerVictim = game.players[1]
+      }
+      else if (playerVictim == "Grace") {
+        playerVictim = game.players[2]
+      }
+      else if (playerVictim == "Ulder") {
+        playerVictim = game.players[3]
+      }
+      else if (playerVictim == "Draven") {
+        playerVictim = game.players[4]
+      }
+      else {
+      }
+    }
+    else {
+    }
+
+    if (playerAttaq == "NORM") {
+      this.dealDamage(playerVictim)
+    }
+    else if (playerAttaq == "SPEC" && this.constructor.name == "Assassin") {
+      this.murder(playerVictim)
+    }
+    else if (playerAttaq == "SPEC" && this.constructor.name == "Healer") {
+      this.healSort()
+    }
+    else if (playerAttaq == "SPEC" && this.constructor.name == "Paladin") {
+      this.lighting(playerVictim)
+    }
+    else if (playerAttaq == "SPEC" && this.constructor.name == "Berserker") {
+      this.berserk()
+    }
+    else if (playerAttaq == "SPEC" && this.constructor.name == "Fighter") {
+      this.darkVision(playerVictim)
+    }
+    else {
+    }
   }
 }
